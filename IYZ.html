@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Indian Youtubers Zone</title>
+<style>
+/* --- CORE LAYOUT --- */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    background: #050607;
+    font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
+    color: #eef6fb;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; width: 100%; height: 100%;
+    background: linear-gradient(180deg, #050607, #0b0f13);
+    z-index: -1;
+}
+
+:root{--grad:linear-gradient(135deg,#ffd46b,#2adaff);--muted:#c6d3dc;--glass-bg:rgba(255,255,255,0.06);--glass-border:rgba(255,255,255,0.12)}
+*{box-sizing:border-box}
+a{text-decoration:none;color:inherit}
+
+header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    z-index: 120;
+}
+
+main {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Added bottom padding so content doesn't get hidden behind fixed footer */
+    padding: 80px 18px 70px 18px; 
+}
+
+.footer {
+    position: fixed; /* Fixed to viewport bottom */
+    bottom: 0; left: 0; right: 0;
+    background: rgba(5,6,7,0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding: 12px 18px;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    z-index: 130; /* Higher than sidebar to stay visible */
+}
+
+.brand{font-weight:700;font-size:18px;background:var(--grad);-webkit-background-clip:text;color:transparent}
+.burger{position:absolute;left:16px;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,255,255,0.03);background:rgba(255,255,255,0.02)}
+.burger .bar{width:22px;height:2px;background:var(--muted);position:relative}
+.burger .bar::before,.burger .bar::after{content:"";position:absolute;left:0;right:0;height:2px;background:var(--muted)}.burger .bar::before{top:-6px}.burger .bar::after{top:6px}
+
+.sidebar{position:fixed;left:-280px;top:0;bottom:0;width:280px;padding-top:84px;background:rgba(255,255,255,0.06);backdrop-filter:blur(14px);border-right:1px solid rgba(255,255,255,0.08);transition:.28s;z-index:110}
+.sidebar.open{transform:translateX(280px)}
+.side-inner{display:flex;flex-direction:column;gap:6px;padding:8px 12px}
+.side-link{padding:12px 14px;border-radius:10px;color:var(--muted);font-weight:600}
+.side-link.active{background:rgba(255,255,255,0.03);background-image:var(--grad);background-clip:text;-webkit-background-clip:text;color:transparent}
+
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.56);opacity:0;visibility:hidden;transition:.25s;z-index:105}
+.overlay.show{opacity:1;visibility:visible}
+
+.page{display:none;max-width:1100px;margin:0 auto;opacity:0;transition:.28s}
+.page.active{display:block;opacity:1}
+
+.creators-title{font-size:20px;margin:4px 0 10px;font-weight:700;text-align:center;background:var(--grad);-webkit-background-clip:text;color:transparent}
+
+.sub-heading {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 24px 0 8px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 8px;
+}
+.sub-heading::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50%; 
+    height: 1px;
+    background: var(--glass-border);
+}
+
+.connections-grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;padding-top:10px;margin-bottom:30px}
+.connection-card{
+    flex:1 1 300px;
+    max-width:400px;
+    padding:16px; 
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    cursor:pointer;
+    transition: transform 0.2s ease;
+}
+.connection-card:hover { transform: translateY(-2px); background:rgba(255,255,255,0.08); }
+.connection-logo{width:50px;height:50px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.connection-logo img{width:32px;height:32px}
+.connection-info .label{font-size:16px;font-weight:700}
+.connection-info .sub{font-size:12px;color:rgba(255,255,255,0.6)}
+
+.creator-list-clean{border-left:3px solid rgba(255,255,255,0.3);padding-left:12px;margin-bottom:26px;display:flex;flex-direction:column;gap:8px}
+.creator-line{font-size:16px;color:var(--muted);font-weight:600}
+.indented-list{margin-left:28px;line-height:1.6;margin-bottom:20px}
+
+/* UNDERLINE LOGIC: Only the text, not the bullet */
+.rule-text { text-decoration: underline; }
+
+.unit-detail{color:var(--muted);font-size:15px;line-height:1.5;margin-left:4px;margin-bottom:24px}
+hr.styled{height:1px;border:0;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.12),rgba(255,255,255,0));margin:20px 0}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="burger" id="burger"><div class="bar"></div></div>
+    <div class="brand">Indian Youtubers Zone</div>
+</header>
+
+<nav class="sidebar" id="sidebar">
+    <div class="side-inner">
+        <a href="#" class="side-link active" data-page="homePage">Home</a>
+        <a href="#" class="side-link" data-page="creatorsPage">All creators</a>
+        <a href="#" class="side-link" data-page="unitsPage">IYZ Units</a>
+        <a href="#" class="side-link" data-page="connectionsPage">Official Connections</a>
+        <a href="#" class="side-link" data-page="aboutPage">About us</a>
+    </div>
+</nav>
+
+<div id="overlay" class="overlay"></div>
+
+<main id="mainScroll">
+    <section id="homePage" class="page active">
+        <h2 class="creators-title">Home</h2>
+        
+        <h2>Rules</h2>
+        <div class="indented-list">
+            <div>• <span class="rule-text">Required Tags on Shorts</span></div>
+            <div>Every short must include these tags exactly as written:</div>
+            <div>#IYZ #IYZArmy #IndianYoutubersZone</div>
+        </div>
+        <hr class="styled">
+        <div class="indented-list">
+            <div>• <span class="rule-text">Weekly Community Post Requirement</span></div>
+            <div>Members must post one community post per week that follows the instructions given. All posts will be related to IYZ.</div>
+        </div>
+        <hr class="styled">
+        <div class="indented-list">
+            <div>• <span class="rule-text">Channel Description Update</span></div>
+            <div>At the end of your channel description, you must add:</div>
+            <div>“Part of Indian Youtubers Zone // Founded by Vaibhav Sundrani.”</div>
+        </div>
+        <hr class="styled">
+        <div class="indented-list">
+            <div>• <span class="rule-text">Collaboration & Support</span></div>
+            <div>You have to collab with small creators too and give shoutouts to small creators too to help the whole community grow.</div>
+        </div>
+        <hr class="styled">
+        
+        <div class="indented-list">
+            <div class="rule-text">Required link in link section of channel</div>
+            <div style="margin-top: 5px; font-weight: normal;">IYZ Official Platforms</div>
+            <div><a href="https://linktr.ee/iyz.official" target="_blank" style="color:#2adaff; text-decoration: underline;">https://linktr.ee/iyz.official</a></div>
+        </div>
+        <hr class="styled">
+        
+        <h2>Terms of Service (TOS)</h2>
+        <div class="indented-list">
+            <div>• <span class="rule-text">Eligibility:</span></div>
+            <div>You must own or be creating a YouTube channel. We provide free logos/banners, but you’re responsible for how you use them.</div>
+        </div>
+        <hr class="styled">
+        <div class="indented-list">
+            <div>• <span class="rule-text">Rule Compliance:</span></div>
+            <div>You must follow all clan rules: required tags, weekly community posts, and the channel description update. Break them → removal.</div>
+        </div>
+        <hr class="styled">
+        <div class="indented-list">
+            <div>• <span class="rule-text">Content Requirements:</span></div>
+            <div>No misleading, harmful, scammy, or drama-bait content. Anything that damages the clan’s image = instant removal.</div>
+        </div>
+        <hr class="styled">
+        <div class="indented-list">
+            <div>• <span class="rule-text">Branding Support:</span></div>
+            <div>You can use IYZ graphics while you’re in the clan. If you leave, remove all IYZ branding immediately.</div>
+        </div>
+        <hr class="styled">
+        <div class="indented-list">
+            <div>• <span class="rule-text">Promotion Duties:</span></div>
+            <div>You must complete weekly IYZ-related promo tasks. Ignoring tasks repeatedly = removal.</div>
+        </div>
+        <hr class="styled">
+        <div class="indented-list">
+            <div>• <span class="rule-text">Behavior Expectations:</span></div>
+            <div>No misusing the clan name, no fake promotions, no causing problems. Stay active and respond to important announcements.</div>
+        </div>
+        <hr class="styled">
+        <div class="indented-list">
+            <div>• <span class="rule-text">Leaving or Removal:</span></div>
+            <div>Leave anytime, but remove all logos, links, and IYZ branding. Breaking rules = no warning, immediate removal.</div>
+        </div>
+        <hr class="styled">
+        <div class="indented-list">
+            <div>• <span class="rule-text">TOS Updates:</span></div>
+            <div>We can update these terms anytime. Staying in the clan means you accept the latest version.</div>
+        </div>
+        <hr class="styled">
+        
+        <h2>Benefits</h2>
+        <div class="indented-list">
+            <div>• Free logos and banners</div>
+            <div>• Community support</div>
+            <div>• Growth boosts</div>
+            <div>• Resources & guides</div>
+        </div>
+    </section>
+
+    <section id="creatorsPage" class="page">
+        <h2 class="creators-title">All Creators</h2>
+        <h3 class="sub-heading">Comparison</h3>
+        <div class="creator-list-clean">
+            <div class="creator-line">| Golden Chair [Founder]</div>
+            <div class="creator-line">| Blue Chair [Founder]</div>
+            <div class="creator-line">| Bronze Chair [Founder]</div>
+        </div>
+        <h3 class="sub-heading">Funny</h3>
+        <div class="creator-list-clean">
+            <div class="creator-line">| WhoCares?</div>
+        </div>
+        <h3 class="sub-heading">Edits</h3>
+        <div class="creator-list-clean">
+            <div class="creator-line">| BugBlade</div>
+        </div>
+        <h3 class="sub-heading">Anime</h3>
+        <div class="creator-list-clean">
+            <div class="creator-line">| Pixel Editz</div>
+            <div class="creator-line">| Devil</div>
+        </div>
+        <h3 class="sub-heading">Gaming</h3>
+        <div class="creator-list-clean">
+            <div class="creator-line">| Nyt Playz</div>
+            <div class="creator-line">| Draxy Gaming</div>
+            <div class="creator-line">| Max_Leaser</div>
+        </div>
+    </section>
+
+    <section id="unitsPage" class="page">
+        <h2 class="creators-title">IYZ Units</h2>
+        <h3 class="sub-heading">IYZ Creators</h3>
+        <p class="unit-detail">Youtubers with whole access to our creators server and free services! They follow rules and grow towards earning!</p>
+        <h3 class="sub-heading">IYZ Army</h3>
+        <p class="unit-detail">Special peoples who created a YT account named IYZ Army with proper logo and description! They help in free promo while commenting on any videos (no off-topic).</p>
+        <h3 class="sub-heading">IYZ Workers</h3>
+        <p class="unit-detail">People available on discord who helps creating videos or official platforms and help them spread! They are on discord and they include Video Editors, Graphic Designers, Web Developers, Social Marketers and Networkers.</p>
+        <h3 class="sub-heading">IYZ Providers</h3>
+        <p class="unit-detail">IYZ Creators providing Logos / Banners / Thumbnails / Description to other IYZ Creators.</p>
+        <h3 class="sub-heading">IYZ Moderators</h3>
+        <p class="unit-detail">Trusted official who manage discord servers. They include from basic staff and ticket managers to highly trusted admins!</p>
+    </section>
+
+    <section id="connectionsPage" class="page">
+        <h2 class="creators-title">Official Connections</h2>
+        <h3 class="sub-heading">Social Media</h3>
+        <div class="connections-grid">
+            <a href="https://youtube.com/@iyz_offcial35?si=GoKtu6P5HGXRd76C" target="_blank" rel="noopener noreferrer" class="connection-card">
+                <div class="connection-logo"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube"></div>
+                <div class="connection-info"><div class="label">YouTube</div><div class="sub">Official IYZ Channel</div></div>
+            </a>
+            <a href="https://www.instagram.com/indianyoutuberszone?igsh=MXM3Z3VsNWJjanphZA==" target="_blank" rel="noopener noreferrer" class="connection-card">
+                <div class="connection-logo"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram"></div>
+                <div class="connection-info"><div class="label">Instagram</div><div class="sub">Follow for updates</div></div>
+            </a>
+        </div>
+        <h3 class="sub-heading">Discord</h3>
+        <div class="connections-grid">
+            <a href="https://discord.gg/y7j9m5puKr" target="_blank" rel="noopener noreferrer" class="connection-card">
+                <div class="connection-logo"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord"></div>
+                <div class="connection-info"><div class="label">Official Server</div><div class="sub">Main community hub</div></div>
+            </a>
+            <a href="https://discord.gg/Vw4cbKKbsA" target="_blank" rel="noopener noreferrer" class="connection-card">
+                <div class="connection-logo"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord"></div>
+                <div class="connection-info"><div class="label">Creators Server</div><div class="sub">Exclusive creator lounge</div></div>
+            </a>
+        </div>
+    </section>
+
+    <section id="aboutPage" class="page">
+        <h2 class="creators-title">About Us</h2>
+        <div style="max-width:900px;margin:6px auto;color:var(--muted);line-height:1.6">
+            <p>Indian Youtubers Zone (IYZ) started with a simple idea: create a space where creators can actually grow, instead of the usual unorganized groups that go nowhere. That idea eventually became a structured community with clear rules, support, and real opportunities for creators who want to stay consistent.</p>
+            <p>IYZ was founded by Vaibhav Sundrani, who manages the community and leads the overall direction. He runs multiple YouTube channels, including the official IYZ channel and also operates a small digital e-store. Along with that, he manages several Discord servers, with two of them directly connected to the IYZ ecosystem.</p>
+            <p>IYZ continues to grow and improve as more creators join in.</p>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">By Vaibhav Sundrani</footer>
+
+<script>
+    const burger=document.getElementById("burger"),sidebar=document.getElementById("sidebar"),overlay=document.getElementById("overlay"),sideLinks=document.querySelectorAll(".side-link"),pages=document.querySelectorAll(".page");
+    function showPageById(id,link){
+        pages.forEach(p=>{p.classList.remove("active");p.style.display="none"});
+        const t=document.getElementById(id);
+        if(!t)return;
+        t.style.display="block";
+        requestAnimationFrame(()=>t.classList.add("active"));
+        sideLinks.forEach(s=>s.classList.remove("active"));
+        if(link) link.classList.add("active");
+        closeSidebar();
+    }
+    function openSidebar(){ sidebar.classList.add("open"); overlay.classList.add("show"); }
+    function closeSidebar(){ sidebar.classList.remove("open"); overlay.classList.remove("show"); }
+    burger.addEventListener("click",()=>sidebar.classList.contains("open")?closeSidebar():openSidebar());
+    overlay.addEventListener("click",closeSidebar);
+    sideLinks.forEach(link=>{
+        link.addEventListener("click",e=>{
+            e.preventDefault();
+            showPageById(link.getAttribute("data-page"),link);
+        })
+    });
+</script>
+</body>
+</html>
