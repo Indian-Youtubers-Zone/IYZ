@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>IYZ Extra | Indian YouTubers Zone</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Style for the locked "Coming Soon" box */
+        .locked-box {
+            background: rgba(255, 255, 255, 0.05); /* Dull color */
+            border: 1px dashed var(--border);
+            opacity: 0.7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 12px;
+        }
+        .lock-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+            filter: grayscale(1);
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <div class="burger" id="burger"><div class="bar"></div></div>
+    <div class="brand">Indian YouTubers Zone</div>
+</header>
+
+<nav class="sidebar" id="sidebar">
+    <div class="side-top">
+        <a href="index.html" class="side-link">Home</a>
+        <a href="rules.html" class="side-link">Rules</a>
+        <a href="joining.html" class="side-link">Joining</a>
+        <a href="units.html" class="side-link">Units & Roles</a>
+        <a href="creators.html" class="side-link">Existing IYZ Creators</a>
+        <a href="extra.html" class="side-link active">IYZ Extra</a>
+    </div>
+    <div class="side-bottom">
+        <a href="https://linktr.ee/iyz.official" target="_blank" class="linktree-btn">Linktree</a>
+        <div class="theme-switch-container">
+            <span class="theme-label">Switch Theme</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="themeCheckbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+</nav>
+
+<div id="overlay" class="overlay"></div>
+
+<main>
+    <h2 class="main-page-title">IYZ Extra</h2>
+    <div class="intro-text">
+        <p>Explore exclusive recognition, growth resources, and upcoming community features.</p>
+    </div>
+
+    <h3 class="faq-sub-heading">Recognition</h3>
+    <div class="unit-list">
+        <div class="unit-item">
+            <h4>Official Certification</h4>
+            <p>We value dedication. Official digital certificates are issued to our hard-working <strong>IYZ Creators</strong> and <strong>IYZ Workers</strong> to recognize their contribution to the zone.</p>
+            <span class="note-text">Recognition for your consistency</span>
+        </div>
+    </div>
+
+    <h3 class="faq-sub-heading">SEO Sundays</h3>
+    <div class="unit-list">
+        <div class="unit-item">
+            <h4>Special SEO Tips</h4>
+            <p>Unlock the secrets of the algorithm. Every Sunday, we provide special SEO strategies and growth hacks to help optimize your channel.</p>
+            <span class="note-text">Exclusive to IYZ Creators</span>
+        </div>
+    </div>
+
+    <h3 class="faq-sub-heading">Special Events</h3>
+    <div class="locked-box">
+        <div class="lock-icon">🔒</div>
+        <h4>Coming Soon</h4>
+        <p style="font-size: 14px; color: var(--muted); margin: 0;">We are preparing something special. Stay tuned for official IYZ events!</p>
+    </div>
+
+    <div class="nav-links-footer">
+        <a href="creators.html" class="back-arrow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:24px; height:24px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </a>
+        <a href="index.html" class="arrow-link-plain">Back to Home <span class="dynamic-arrow">→</span></a>
+    </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

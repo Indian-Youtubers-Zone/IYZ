@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Units & Roles | Indian YouTubers Zone</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Small additions for the unit list layout */
+        .unit-list { margin-bottom: 40px; }
+        .unit-item { 
+            padding: 20px; 
+            border: 1px solid var(--border); 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .unit-item h4 { 
+            margin: 0 0 10px 0; 
+            color: var(--accent); 
+            font-size: 18px; 
+            text-transform: uppercase; 
+        }
+        .unit-item p { margin-bottom: 15px; font-size: 14px; color: var(--muted); }
+        .unit-btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn-small { 
+            padding: 8px 16px; 
+            border-radius: 6px; 
+            text-decoration: none; 
+            font-size: 13px; 
+            font-weight: 700; 
+            transition: 0.2s;
+        }
+        .btn-apply { border: 1px solid var(--accent); color: var(--accent); }
+        .btn-apply:hover { background: var(--accent); color: #000; }
+        .note-text { font-size: 12px; color: var(--accent); margin-bottom: 8px; display: block; font-weight: 600;}
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <div class="burger" id="burger"><div class="bar"></div></div>
+    <div class="brand">Indian YouTubers Zone</div>
+</header>
+
+<nav class="sidebar" id="sidebar">
+    <div class="side-top">
+        <a href="index.html" class="side-link">Home</a>
+        <a href="rules.html" class="side-link">Rules</a>
+        <a href="joining.html" class="side-link">Joining</a>
+        <a href="units.html" class="side-link active">Units & Roles</a>
+        <a href="creators.html" class="side-link">Existing IYZ Creators</a>
+    </div>
+    <div class="side-bottom">
+        <a href="https://linktr.ee/iyz.official" target="_blank" class="linktree-btn">Linktree</a>
+        <div class="theme-switch-container">
+            <span class="theme-label">Switch Theme</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="themeCheckbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+</nav>
+
+<div id="overlay" class="overlay"></div>
+
+<main>
+    <h2 class="main-page-title">Units & Roles</h2>
+    <div class="intro-text">
+        <p>IYZ is organized into specialized units to ensure every creator and contributor has a clear role and support system.</p>
+    </div>
+
+    <h3 class="faq-sub-heading">IYZ Units</h3>
+    
+    <div class="unit-list">
+        <div class="unit-item">
+            <h4>IYZ Creators</h4>
+            <p>YouTubers with whole access to our creators server and free services! They follow rules and grow towards earning!</p>
+            <span class="note-text">Apply to join our creator community</span>
+            <div class="unit-btn-group">
+                <a href="https://discord.gg/Vw4cbKKbsA" target="_blank" class="btn-small btn-apply">Apply Now</a>
+            </div>
+        </div>
+
+        <div class="unit-item">
+            <h4>IYZ Army</h4>
+            <p>Special peoples who created a YT account named IYZ Army with proper logo and description! They help in free promo while commenting on any videos (no off-topic).</p>
+            <span class="note-text">Apply to join the Army</span>
+            <div class="unit-btn-group">
+                <a href="https://discord.gg/bu27SsKsZn" target="_blank" class="btn-small btn-apply">Apply Now</a>
+            </div>
+        </div>
+
+        <div class="unit-item">
+            <h4>IYZ Workers</h4>
+            <p>People available on discord who help creating videos or official platforms and help them spread! They include Video Editors, Graphic Designers, Web Developers and Networkers.</p>
+            <span class="note-text">Apply for IYZ Workers</span>
+            <div class="unit-btn-group">
+                <a href="https://discord.gg/spyBhUAvWT" target="_blank" class="btn-small btn-apply">Apply Now</a>
+            </div>
+        </div>
+
+        <div class="unit-item">
+            <h4>IYZ Providers</h4>
+            <p>IYZ Creators providing Logos / Banners / Thumbnails / Description to other IYZ Creators.</p>
+            <span class="note-text">Must be an IYZ Creator first</span>
+            <div class="unit-btn-group">
+                <a href="https://discord.gg/Vw4cbKKbsA" target="_blank" class="btn-small btn-apply">Apply Now</a>
+            </div>
+        </div>
+
+        <div class="unit-item">
+            <h4>IYZ Moderators</h4>
+            <p>Trusted official who manage discord servers. They include from basic staff and ticket managers to highly trusted admins!</p>
+            <span class="note-text">Apply for the moderation team</span>
+            <div class="unit-btn-group">
+                <a href="https://discord.gg/y7j9m5puKr" target="_blank" class="btn-small btn-apply">Apply Now</a>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="faq-sub-heading">Common Questions</h3>
+    <div class="faq-container">
+        <details class="faq-clean">
+            <summary>Can we be part of all IYZ Units?</summary>
+            <div class="faq-content">Yes, you can apply to become part of all IYZ Units!</div>
+        </details>
+        <details class="faq-clean">
+            <summary>Is it compulsory to be IYZ Provider if you are IYZ Creator?</summary>
+            <div class="faq-content">No, it’s totally okay to be a IYZ Creator without being IYZ Provider but still, if you want more advantages, feel free to apply!</div>
+        </details>
+        <details class="faq-clean">
+            <summary>Do IYZ Workers have to do everything?</summary>
+            <div class="faq-content">The work load depends on which work you choose [Video Editing, Graphic Designing, Web Developing and/or Networking] but IYZ Workers mostly get less work.</div>
+        </details>
+    </div>
+
+    <div class="nav-links-footer">
+        <a href="joining.html" class="back-arrow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:24px; height:24px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </a>
+        <a href="creators.html" class="arrow-link-plain">Meet Creators <span class="dynamic-arrow">→</span></a>
+    </div>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
